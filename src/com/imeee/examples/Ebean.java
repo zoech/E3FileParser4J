@@ -2,12 +2,14 @@ package com.imeee.examples;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
 import com.imeee.textFileParser.TextLineFileParser;
 import com.imeee.textFileParser.annotation.LField;
 import com.imeee.textFileParser.annotation.LLine;
 
+/**
+ * @author Eee
+ *
+ */
 @LLine(fieldsCnt=4, fieldSep="\\|")
 public class Ebean {
 	@LField(order=0,length=50)
