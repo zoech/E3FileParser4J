@@ -1,5 +1,7 @@
 package com.imeee.examples;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +61,19 @@ public class Ebean {
 	}
 
 	public static void main(String[] args) throws Exception {
+		parseTest();
+	}
+	
+	
+	public static void methodInvokeTest() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method valueOfMethod = Double.class.getMethod("valueOf", String.class);
+		
+		if(valueOfMethod != null) {
+			valueOfMethod.invoke(null, "20.8");
+		}
+	}
+	
+	public static void parseTest() throws Exception {
 //		String s = "xxx?bbb?cc";
 //		String[] x = s.split("?");
 //		
@@ -68,15 +83,18 @@ public class Ebean {
 		
 		
 		
-		TextLineFileParser<Ebean> parser = new TextLineFileParser<Ebean>(Ebean.class, "E://tmp/tmp_20180330/parsing.txt");
+		TextLineFileParser<Ebean> parser = new TextLineFileParser<Ebean>(Ebean.class, "/home/zoey/tmp/parsing.txt");
 		
 		parser.initial();
 //		
 		if(!parser.valdateWholeFile()) {
+			System.out.println("--------");
 			System.out.println(parser.getMessage());
 		}
 		
 		List<Ebean> ll = parser.parseWholeFile();
+		
+		parser.reset();
 //		
 //		for(Ebean x : ll) {
 //			System.out.println(x.getId());

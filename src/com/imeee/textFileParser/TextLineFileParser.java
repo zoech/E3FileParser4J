@@ -236,13 +236,7 @@ public class TextLineFileParser<T> {
 				
 			} else {
 				
-				Method[] methods = fh.getType().getDeclaredMethods();
-				Method valueOfMethod = null;
-				for(Method method : methods) {
-					if("valueOf".equals(method.getName())) {
-						valueOfMethod = method;
-					}
-				}
+				Method valueOfMethod = fh.getType().getMethod("valueOf", String.class);
 				
 				if(valueOfMethod == null) {
 					throw new Exception("unsupport field type : " + fh.getType().getName());
@@ -431,13 +425,7 @@ public class TextLineFileParser<T> {
 			return true;
 		} else {
 			
-			Method[] methods = clz.getDeclaredMethods();
-			Method valueOfMethod = null;
-			for(Method method : methods) {
-				if("valueOf".equals(method.getName())) {
-					valueOfMethod = method;
-				}
-			}
+			Method valueOfMethod = clz.getMethod("valueOf", String.class);
 			
 			if(valueOfMethod == null) {
 				throw new Exception("unsupport field type : " + clz.getName());
