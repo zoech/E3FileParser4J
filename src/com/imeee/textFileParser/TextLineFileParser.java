@@ -330,35 +330,41 @@ public class TextLineFileParser<T> {
 		}
 		
 		// 检查类型定义约束与字符串是否匹配
-		for(FieldHelper fh : this.fieldHelpers) {
-			LField lF = fh.getMeta();
-			int fIndex = lF.order();
-			String targetStr = strTmp[fIndex].trim();
-			
-			if(!this.validateTypeConstraint(fh.getType(), targetStr)) {
-				String msg = "field \"" + fh.getName() + "\": type constraint validation failed";
-				this.setMessage(msg);
-				System.out.println(msg);
-				return false;
-			}
+		if(!this.validateNextTypeConstraint()) {
+			return false;
 		}
+//		for(FieldHelper fh : this.fieldHelpers) {
+//			LField lF = fh.getMeta();
+//			int fIndex = lF.order();
+//			String targetStr = strTmp[fIndex].trim();
+//			
+//			if(!this.validateTypeConstraint(fh.getType(), targetStr)) {
+//				String msg = "field \"" + fh.getName() + "\": type constraint validation failed";
+//				this.setMessage(msg);
+//				System.out.println(msg);
+//				return false;
+//			}
+//		}
 		
 		
 		// 检查用户自定义format与字符串是否匹配
-		for(FieldHelper fh : this.fieldHelpers) {
-			LField lF = fh.getMeta();
-			int fIndex = lF.order();
-			String targetStr = strTmp[fIndex].trim();
-			
-			if(!validateUserLField(fh, targetStr)) {
-				String msg = "field \"" + fh.getName() + "\": user defined constraint validation failed";
-				this.setMessage(msg);
-				System.out.println(msg);
-				return false;
-			}
-			
-			
-		} // end of +++++ for(FieldHelper fh : this.fieldHelpers) { +++++
+		if(!this.validateNextUserField()) {
+			return false;
+		}
+//		for(FieldHelper fh : this.fieldHelpers) {
+//			LField lF = fh.getMeta();
+//			int fIndex = lF.order();
+//			String targetStr = strTmp[fIndex].trim();
+//			
+//			if(!validateUserLField(fh, targetStr)) {
+//				String msg = "field \"" + fh.getName() + "\": user defined constraint validation failed";
+//				this.setMessage(msg);
+//				System.out.println(msg);
+//				return false;
+//			}
+//			
+//			
+//		} // end of +++++ for(FieldHelper fh : this.fieldHelpers) { +++++
 		
 		this.setMessage("ok");
 		return true;

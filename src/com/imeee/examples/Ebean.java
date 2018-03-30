@@ -2,6 +2,8 @@ package com.imeee.examples;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import com.imeee.textFileParser.TextLineFileParser;
 import com.imeee.textFileParser.annotation.LField;
 import com.imeee.textFileParser.annotation.LLine;
@@ -15,7 +17,7 @@ public class Ebean {
 	@LField(order=0,length=50)
 	private int id;
 	
-	@LField(order=1)
+	@LField(order=1,format="\\d+")
 	private String key;
 	
 	@LField(order=2)
@@ -74,7 +76,7 @@ public class Ebean {
 			System.out.println(parser.getMessage());
 		}
 		
-//		List<Ebean> ll = parser.parseWholeFile();
+		List<Ebean> ll = parser.parseWholeFile();
 //		
 //		for(Ebean x : ll) {
 //			System.out.println(x.getId());
