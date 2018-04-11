@@ -408,24 +408,20 @@ public class TextLineFileParser<T> {
 		if(targetStr == null) {
 			return false;
 		}
+
+		if("".equals(targetStr)) {
+			return true;
+		}
 		
 		if(String.class == clz) {
 			return true;
-		} else if(int.class == clz) {
-			
-		} else if(long.class == clz) {
-			
-		} else if(double.class == clz) {
-			
-		} else if(float.class == clz) {
-			
-		} else if(boolean.class == clz) {
-			
 		} else if(Date.class == clz){
 			return true;
 		} else {
 			
-			Method valueOfMethod = clz.getMethod("valueOf", String.class);
+			Class<?> genericClz = GenericTypeUtils.getGenericClass(clz);
+			
+			Method valueOfMethod = genericClz.getMethod("valueOf", String.class);
 			
 			if(valueOfMethod == null) {
 				throw new Exception("unsupport field type : " + clz.getName());
@@ -506,10 +502,7 @@ public class TextLineFileParser<T> {
 			// 检查字段文本格式合法性
 			String fmt = lF.format();
 			
-			if(fmt == null || "".equals(fmt)) {
-				return true;
-				
-			} else {
+			if(fmt != null && !"".equals(fmt)) {
 				
 				if(Date.class == fh.getType()){
 					if(fmt == null || "".equals(fmt)) {
@@ -568,13 +561,9 @@ public class TextLineFileParser<T> {
 		this.fieldHelpers = null;
 	}
 	
-	protected void finalize() {
-		try {
-			this.finalizing();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected void finalize() throws Throwable {
+		super.finalize();
+		this.finalizing();
 	}
 
 	/**

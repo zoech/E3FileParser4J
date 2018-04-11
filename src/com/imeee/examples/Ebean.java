@@ -83,7 +83,7 @@ public class Ebean {
 		
 		
 		
-		TextLineFileParser<Ebean> parser = new TextLineFileParser<Ebean>(Ebean.class, "/home/zoey/tmp/parsing.txt");
+		TextLineFileParser<Ebean> parser = new TextLineFileParser<Ebean>(Ebean.class, "E:\\tmp\\tmp_20180330\\parsing.txt");
 		
 		parser.initial();
 //		
